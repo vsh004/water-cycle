@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش چرخه آب - پایه سوم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset و متغیرها */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #4dabf7;
+            --secondary-blue: #339af0;
+            --light-blue: #e7f5ff;
+            --cloud-white: #f8f9fa;
+            --water-blue: #228be6;
+            --sun-yellow: #ffd43b;
+            --earth-brown: #a17f5d;
+            --success-green: #51cf66;
+            --error-red: #ff6b6b;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        /* کانتینر اصلی */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+        
+        /* هدر */
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--water-blue) 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .grade-badge {
+            display: inline-block;
+            background-color: var(--sun-yellow);
+            color: var(--text-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* بخش‌های اصلی */
+        .section {
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-right: 5px solid var(--primary-blue);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--water-blue);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .section-title i {
+            font-size: 1.8rem;
+        }
+        
+        /* انیمیشن چرخه آب */
+        .animation-container {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(to bottom, #87CEEB 30%, #1E90FF 70%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 3px solid var(--water-blue);
+        }
+        
+        /* عناصر انیمیشن */
+        .sun {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--sun-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 212, 59, 0.8);
+            animation: pulse 3s infinite alternate;
+        }
+        
+        .sea {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background-color: var(--water-blue);
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 40%;
+            width: 100%;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' fill='%231E90FF'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z'/%3E%3C/svg%");
+            background-size: 1200px 100%;
+            animation: wave 12s linear infinite;
+        }
+        
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: var(--cloud-white);
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+        }
+        
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background-color: var(--cloud-white);
+            border-radius: 50%;
+        }
+        
+        .cloud:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 20px;
+        }
+        
+        .cloud:after {
+            width: 30px;
+            height: 30px;
+            top: -15px;
+            right: 20px;
+        }
+        
+        .rain-drop {
+            position: absolute;
+            width: 3px;
+            height: 15px;
+            background-color: var(--primary-blue);
+            border-radius: 0 0 3px 3px;
+            opacity: 0;
+        }
+        
+        .mountain {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--earth-brown);
+            clip-path: polygon(0% 100%, 20% 0%, 40% 100%, 60% 0%, 80% 100%, 100% 0%, 100% 100%);
+        }
+        
+        .river {
+            position: absolute;
+            bottom: 40%;
+            left: 30%;
+            width: 40px;
+            height: 0;
+            background-color: var(--water-blue);
+            border-radius: 0 0 10px 10px;
+        }
+        
+        /* دکمه‌های مراحل */
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .step-btn {
+            padding: 15px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(77, 171, 247, 0.3);
+        }
+        
+        .step-btn:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(77, 171, 247, 0.4);
+        }
+        
+        .step-btn.active {
+            background-color: var(--sun-yellow);
+            color: var(--text-dark);
+        }
+        
+        .step-btn i {
+            font-size: 1.3rem;
+        }
+        
+        /* کوییز */
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 3px solid var(--light-blue);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--light-blue);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background-color: #d0ebff;
+        }
+        
+        .option.selected {
+            border-color: var(--primary-blue);
+            background-color: #d0ebff;
+        }
+        
+        .option.correct {
+            border-color: var(--success-green);
+            background-color: #d3f9d8;
+        }
+        
+        .option.incorrect {
+            border-color: var(--error-red);
+            background-color: #ffe3e3;
+        }
+        
+        /* دکمه‌های کنترل */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .control-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .start-btn {
+            background-color: var(--success-green);
+            color: white;
+        }
+        
+        .reset-btn {
+            background-color: var(--error-red);
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* امتیاز و ستاره‌ها */
+        .score-container {
+            text-align: center;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #e7f5ff 0%, #d0ebff 100%);
+            border-radius: 15px;
+        }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .star {
+            font-size: 2.5rem;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .star.filled {
+            color: var(--sun-yellow);
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+            color: var(--water-blue);
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        /* انیمیشن‌ها */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1200px; }
+        }
+        
+        @keyframes evaporate {
+            0% { 
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            50% { 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-150px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes rain {
+            0% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes flow {
+            0% { height: 0; }
+            100% { height: 150px; }
+        }
+        
+        /* پیام بازخورد */
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #d3f9d8;
+            color: #2b8a3e;
+            border: 2px solid var(--success-green);
+        }
+        
+        .feedback.incorrect {
+            background-color: #ffe3e3;
+            color: #c92a2a;
+            border: 2px solid var(--error-red);
+        }
+        
+        /* سازگاری با موبایل */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .animation-container {
+                height: 250px;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .sun {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        /* توضیحات مراحل */
+        .step-description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-right: 4px solid var(--primary-blue);
+            display: none;
+        }
+        
+        .step-description.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tint"></i> آموزش چرخه آب</h1>
+            <p class="subtitle">کشف شگفتی‌های سفر آب در طبیعت</p>
+            <div class="grade-badge">پایه سوم ابتدایی</div>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> انیمیشن چرخه آب</h2>
+            <p>روی دکمه‌های زیر کلیک کن تا هر مرحله از چرخه آب را ببینی!</p>
+            
+            <div class="animation-container" id="animation-container">
+                <div class="sun"></div>
+                <div class="sea"></div>
+                <div class="wave"></div>
+                <div class="mountain"></div>
+                <div class="river" id="river"></div>
+            </div>
+            
+            <div class="steps-container">
+                <button class="step-btn" onclick="showStep(1)">
+                    <i class="fas fa-temperature-high"></i> تبخیر
+                </button>
+                <button class="step-btn" onclick="showStep(2)">
+                    <i class="fas fa-cloud"></i> تشکیل ابر
+                </button>
+                <button class="step-btn" onclick="showStep(3)">
+                    <i class="fas fa-cloud-rain"></i> بارش
+                </button>
+                <button class="step-btn" onclick="showStep(4)">
+                    <i class="fas fa-water"></i> جریان آب
+                </button>
+                <button class="step-btn" onclick="showStep(5)">
+                    <i class="fas fa-redo"></i> کل چرخه
+                </button>
+            </div>
+            
+            <div class="step-description" id="step1-desc">
+                <h3><i class="fas fa-temperature-high"></i> مرحله تبخیر</h3>
+                <p>وقتی خورشید می‌تابد، آب دریاها، رودخانه‌ها و خاک گرم می‌شود و به شکل بخار آب درمی‌آید. این بخار آب سبک است و به سمت آسمان بالا می‌رود.</p>
+            </div>
+            
+            <div class="step-description" id="step2-desc">
+                <h3><i class="fas fa-cloud"></i> مرحله تشکیل ابر</h3>
+                <p>بخار آب وقتی به ارتفاع بالایی از آسمان می‌رسد، سرد می‌شود و به قطرات ریز آب تبدیل می‌شود. این قطرات ریز در کنار هم ابر را تشکیل می‌دهند.</p>
+            </div>
+            
+            <div class="step-description" id="step3-desc">
+                <h3><i class="fas fa-cloud-rain"></i> مرحله بارش</h3>
+                <p>وقتی قطرات آب در ابر بزرگ می‌شوند و سنگین می‌شوند، نمی‌توانند در آسمان بمانند. پس به شکل باران، برف یا تگرگ به زمین برمی‌گردند.</p>
+            </div>
+            
+            <div class="step-description" id="step4-desc">
+                <h3><i class="fas fa-water"></i> مرحله جریان آب</h3>
+                <p>آب باران روی زمین جاری می‌شود. بخشی از آن به رودخانه‌ها می‌رود، بخشی در زمین نفوذ می‌کند و بخشی دوباره به دریاها برمی‌گردد.</p>
+            </div>
+            
+            <div class="step-description" id="step5-desc">
+                <h3><i class="fas fa-redo"></i> کل چرخه آب</h3>
+                <p>چرخه آب یک فرآیند بی‌پایان است که در آن آب مدام در حال تبخیر، تشکیل ابر، بارش و جریان است. این چرخه زندگی را روی زمین ممکن می‌کند.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-question-circle"></i> آزمون چرخه آب</h2>
+            <p>حالا نوبت توست! به سوالات زیر پاسخ بده و دانش خودت رو محک بزن.</p>
+            
+            <div class="quiz-container">
+                <div class="question" id="q1">
+                    <h3><span class="question-number">1</span> وقتی خورشید به آب می‌تابد چه اتفاقی می‌افتد؟</h3>
+                    <div class="options">
+                        <div class="option" data-correct="true" onclick="selectAnswer(this, 1)">آب تبخیر می‌شود و به بخار تبدیل می‌شود</div>
+                        <div class="option" onclick="selectAnswer(this, 1)">آب یخ می‌زند</div>
+                        <div class="option" onclick="selectAnswer(this, 1)">آب ناپدید می‌شود</div>
+                        <div class="option" onclick="selectAnswer(this, 1)">آب گرم می‌شود ولی تغییری نمی‌کند</div>
+                    </div>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+                
+                <div class="question" id="q2">
+                    <h3><span class="question-number">2</span> ابرها چگونه تشکیل می‌شوند؟</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(this, 2)">از دود کارخانه‌ها</div>
+                        <div class="option" data-correct="true" onclick="selectAnswer(this, 2)">از بخار آب که سرد شده و به قطرات ریز تبدیل شده</div>
+                        <div class="option" onclick="selectAnswer(this, 2)">از پنبه‌های آسمان</div>
+                        <div class="option" onclick="selectAnswer(this, 2)">از گرد و غبار هوا</div>
+                    </div>
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+                
+                <div class="question" id="q3">
+                    <h3><span class="question-number">3</span> وقتی باران می‌بارد، آب باران به کجا می‌رود؟</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(this, 3)">همه آب باران تبخیر می‌شود</div>
+                        <div class="option" onclick="selectAnswer(this, 3)">آب باران در آسمان می‌ماند</div>
+                        <div class="option" data-correct="true" onclick="selectAnswer(this, 3)">به رودخانه‌ها، دریاها و زمین نفوذ می‌کند</div>
+                        <div class="option" onclick="selectAnswer(this, 3)">آب باران ناپدید می‌شود</div>
+                    </div>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+                
+                <div class="question" id="q4">
+                    <h3><span class="question-number">4</span> چرخه آب چیست؟</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(this, 4)">یک ماشین برای تولید آب</div>
+                        <div class="option" data-correct="true" onclick="selectAnswer(this, 4)">سفر بی‌پایان آب در طبیعت</div>
+                        <div class="option" onclick="selectAnswer(this, 4)">یک بازی آبی</div>
+                        <div class="option" onclick="selectAnswer(this, 4)">نقشه راه آب در شهر</div>
+                    </div>
+                    <div class="feedback" id="feedback4"></div>
+                </div>
+                
+                <div class="question" id="q5">
+                    <h3><span class="question-number">5</span> کدام یک از موارد زیر جزو مراحل چرخه آب نیست؟</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(this, 5)">تبخیر</div>
+                        <div class="option" onclick="selectAnswer(this, 5)">تشکیل ابر</div>
+                        <div class="option" data-correct="true" onclick="selectAnswer(this, 5)">آتش گرفتن آب</div>
+                        <div class="option" onclick="selectAnswer(this, 5)">بارش</div>
+                    </div>
+                    <div class="feedback" id="feedback5"></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn start-btn" onclick="checkQuiz()">
+                        <i class="fas fa-check-circle"></i> بررسی پاسخ‌ها
+                    </button>
+                    <button class="control-btn reset-btn" onclick="resetQuiz()">
+                        <i class="fas fa-redo"></i> شروع دوباره
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <div class="score-container" id="score-container" style="display: none;">
+            <h2 class="section-title"><i class="fas fa-star"></i> امتیاز شما</h2>
+            <div class="stars" id="stars">
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+            </div>
+            <p class="score-text" id="score-text">شما 0 از 5 سوال را درست پاسخ دادید!</p>
+            <button class="control-btn reset-btn" onclick="resetQuiz()" style="margin-top: 20px;">
+                <i class="fas fa-redo"></i> آزمون دوباره
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // متغیرهای جهانی
+        let selectedAnswers = {};
+        let correctAnswers = 0;
+        let audioContext;
+        
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            // شروع با مرحله اول
+            showStep(1);
+            
+            // آماده کردن Web Audio API
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.log('Web Audio API پشتیبانی نمی‌شود');
+            }
+        });
+        
+        // نمایش مرحله انتخاب شده
+        function showStep(stepNumber) {
+            // پنهان کردن همه توضیحات
+            const allDescriptions = document.querySelectorAll('.step-description');
+            allDescriptions.forEach(desc => {
+                desc.classList.remove('active');
+            });
+            
+            // غیرفعال کردن همه دکمه‌ها
+            const allButtons = document.querySelectorAll('.step-btn');
+            allButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // فعال کردن دکمه انتخاب شده
+            const activeButton = document.querySelectorAll('.step-btn')[stepNumber - 1];
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+            
+            // نمایش توضیحات مرحله
+            const activeDescription = document.getElementById(`step${stepNumber}-desc`);
+            if (activeDescription) {
+                activeDescription.classList.add('active');
+            }
+            
+            // پاک کردن انیمیشن قبلی
+            clearAnimation();
+            
+            // اجرای انیمیشن مرحله انتخاب شده
+            setTimeout(() => {
+                animateStep(stepNumber);
+            }, 300);
+        }
+        
+        // پاک کردن انیمیشن
+        function clearAnimation() {
+            const container = document.getElementById('animation-container');
+            
+            // حذف ابرهای قبلی
+            const existingClouds = container.querySelectorAll('.cloud');
+            existingClouds.forEach(cloud => cloud.remove());
+            
+            // حذف قطره‌های باران
+            const existingRain = container.querySelectorAll('.rain-drop');
+            existingRain.forEach(rain => rain.remove());
+            
+            // ریست کردن رودخانه
+            const river = document.getElementById('river');
+            river.style.height = '0';
+            river.style.animation = 'none';
+        }
+        
+        // انیمیشن مرحله‌ها
+        function animateStep(stepNumber) {
+            const container = document.getElementById('animation-container');
+            
+            switch(stepNumber) {
+                case 1: // تبخیر
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => {
+                            createBubble(container);
+                        }, i * 200);
+                    }
+                    break;
+                    
+                case 2: // تشکیل ابر
+                    createCloud(container, 150, 100);
+                    createCloud(container, 300, 80);
+                    createCloud(container, 450, 120);
+                    break;
+                    
+                case 3: // بارش
+                    createCloud(container, 250, 100);
+                    setTimeout(() => {
+                        createRain(container, 250, 100);
+                    }, 1000);
+                    break;
+                    
+                case 4: // جریان آب
+                    const river = document.getElementById('river');
+                    river.style.animation = 'flow 2s forwards';
+                    break;
+                    
+                case 5: // کل چرخه
+                    // تبخیر
+                    for (let i = 0; i < 8; i++) {
+                        setTimeout(() => {
+                            createBubble(container);
+                        }, i * 300);
+                    }
+                    
+                    // ابر بعد از 2 ثانیه
+                    setTimeout(() => {
+                        createCloud(container, 250, 100);
+                    }, 2000);
+                    
+                    // بارش بعد از 4 ثانیه
+                    setTimeout(() => {
+                        createRain(container, 250, 100);
+                    }, 4000);
+                    
+                    // جریان آب بعد از 6 ثانیه
+                    setTimeout(() => {
+                        const river = document.getElementById('river');
+                        river.style.animation = 'flow 2s forwards';
+                    }, 6000);
+                    break;
+            }
+        }
+        
+        // ایجاد حباب تبخیر
+        function createBubble(container) {
+            const bubble = document.createElement('div');
+            bubble.style.position = 'absolute';
+            bubble.style.bottom = '40%';
+            bubble.style.left = Math.random() * 80 + 10 + '%';
+            bubble.style.width = '15px';
+            bubble.style.height = '15px';
+            bubble.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+            bubble.style.borderRadius = '50%';
+            bubble.style.animation = 'evaporate 3s forwards';
+            
+            container.appendChild(bubble);
+            
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.parentNode.removeChild(bubble);
+                }
+            }, 3000);
+        }
+        
+        // ایجاد ابر
+        function createCloud(container, left, top) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.style.left = left + 'px';
+            cloud.style.top = top + 'px';
+            cloud.style.opacity = '0';
+            
+            container.appendChild(cloud);
+            
+            // انیمیشن ظاهر شدن ابر
+            setTimeout(() => {
+                cloud.style.transition = 'opacity 2s';
+                cloud.style.opacity = '1';
+            }, 100);
+        }
+        
+        // ایجاد باران
+        function createRain(container, cloudLeft, cloudTop) {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const rainDrop = document.createElement('div');
+                    rainDrop.className = 'rain-drop';
+                    rainDrop.style.left = (cloudLeft + Math.random() * 60 - 30) + 'px';
+                    rainDrop.style.top = (cloudTop + 40) + 'px';
+                    rainDrop.style.opacity = '1';
+                    rainDrop.style.animation = `rain 1s ${i * 0.1}s forwards`;
+                    
+                    container.appendChild(rainDrop);
+                    
+                    setTimeout(() => {
+                        if (rainDrop.parentNode) {
+                            rainDrop.parentNode.removeChild(rainDrop);
+                        }
+                    }, 1000 + i * 100);
+                }, i * 100);
+            }
+        }
+        
+        // انتخاب گزینه در کوییز
+        function selectAnswer(element, questionNumber) {
+            const question = document.getElementById(`q${questionNumber}`);
+            const options = question.querySelectorAll('.option');
+            
+            // حذف انتخاب قبلی
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // انتخاب گزینه جدید
+            element.classList.add('selected');
+            selectedAnswers[questionNumber] = element.getAttribute('data-correct') === 'true';
+            
+            // پاک کردن بازخورد قبلی
+            const feedback = document.getElementById(`feedback${questionNumber}`);
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+        }
+        
+        // بررسی پاسخ‌های کوییز
+        function checkQuiz() {
+            correctAnswers = 0;
+            const totalQuestions = 5;
+            
+            // بررسی هر سوال
+            for (let i = 1; i <= totalQuestions; i++) {
+                const question = document.getElementById(`q${i}`);
+                const options = question.querySelectorAll('.option');
+                const feedback = document.getElementById(`feedback${i}`);
+                
+                // اگر پاسخ داده شده
+                if (selectedAnswers[i] !== undefined) {
+                    options.forEach(opt => {
+                        // نشان دادن پاسخ صحیح
+                        if (opt.getAttribute('data-correct') === 'true') {
+                            opt.classList.add('correct');
+                        }
+                        
+                        // نشان دادن پاسخ نادرست انتخاب شده
+                        if (opt.classList.contains('selected') && opt.getAttribute('data-correct') !== 'true') {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    // نمایش بازخورد
+                    if (selectedAnswers[i]) {
+                        correctAnswers++;
+                        feedback.textContent = 'آفرین! پاسخ تو درست است!';
+                        feedback.className = 'feedback correct';
+                        playSuccessSound();
+                    } else {
+                        feedback.textContent = 'پاسخ صحیح را ببین و دوباره تلاش کن!';
+                        feedback.className = 'feedback incorrect';
+                    }
+                    
+                    feedback.style.display = 'block';
+                } else {
+                    feedback.textContent = 'لطفاً یک گزینه انتخاب کن!';
+                    feedback.className = 'feedback incorrect';
+                    feedback.style.display = 'block';
+                }
+            }
+            
+            // محاسبه امتیاز
+            const scorePercentage = (correctAnswers / totalQuestions) * 100;
+            
+            // نمایش امتیاز
+            showScore(scorePercentage);
+        }
+        
+        // نمایش امتیاز با ستاره
+        function showScore(percentage) {
+            const scoreContainer = document.getElementById('score-container');
+            const stars = document.getElementById('stars').querySelectorAll('.star');
+            const scoreText = document.getElementById('score-text');
+            
+            // محاسبه تعداد ستاره‌ها
+            let starCount = 0;
+            if (percentage >= 90) starCount = 5;
+            else if (percentage >= 70) starCount = 4;
+            else if (percentage >= 50) starCount = 3;
+            else if (percentage >= 30) starCount = 2;
+            else if (percentage > 0) starCount = 1;
+            
+            // پر کردن ستاره‌ها
+            stars.forEach((star, index) => {
+                if (index < starCount) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+            
+            // نمایش متن امتیاز
+            scoreText.textContent = `شما ${correctAnswers} از 5 سوال را درست پاسخ دادید!`;
+            
+            // نمایش کانتینر امتیاز
+            scoreContainer.style.display = 'block';
+            scoreContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // پخش صدای تشویق برای امتیاز بالا
+            if (starCount >= 3) {
+                playCelebrationSound();
+            }
+        }
+        
+        // پخش صدای موفقیت
+        function playSuccessSound() {
+            if (!audioContext) return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log('خطا در پخش صدا:', e);
+            }
+        }
+        
+        // پخش صدای تشویق
+        function playCelebrationSound() {
+            if (!audioContext) return;
+            
+            try {
+                // یک ملودی ساده تشویق
+                const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
+                let time = audioContext.currentTime;
+                
+                notes.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = freq;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0, time);
+                    gainNode.gain.linearRampToValueAtTime(0.1, time + 0.05);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
+                    
+                    oscillator.start(time);
+                    oscillator.stop(time + 0.3);
+                    
+                    time += 0.15;
+                });
+            } catch (e) {
+                console.log('خطا در پخش صدا:', e);
+            }
+        }
+        
+        // ریست کردن کوییز
+        function resetQuiz() {
+            // پاک کردن انتخاب‌ها
+            selectedAnswers = {};
+            correctAnswers = 0;
+            
+            // ریست کردن سوالات
+            for (let i = 1; i <= 5; i++) {
+                const question = document.getElementById(`q${i}`);
+                const options = question.querySelectorAll('.option');
+                const feedback = document.getElementById(`feedback${i}`);
+                
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                feedback.style.display = 'none';
+                feedback.className = 'feedback';
+            }
+            
+            // پنهان کردن امتیاز
+            const scoreContainer = document.getElementById('score-container');
+            scoreContainer.style.display = 'none';
+            
+            // پنهان کردن ستاره‌ها
+            const stars = document.getElementById('stars').querySelectorAll('.star');
+            stars.forEach(star => {
+                star.classList.remove('filled');
+            });
+            
+            // برگشت به بالای صفحه
+            document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
